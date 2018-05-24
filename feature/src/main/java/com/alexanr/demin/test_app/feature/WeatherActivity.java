@@ -9,7 +9,6 @@ public class WeatherActivity extends AppCompatActivity {
 
     private TextView city;
     private TextView temperatureValue;
-    private TextView temperature;
     private TextView pressure;
     private TextView pressureValue;
     private TextView humidity;
@@ -20,11 +19,11 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_weather);
 
-        bundle = getIntent().getExtras();
+        this.bundle = getIntent().getExtras();
 
         city = findViewById(R.id.text_city);
-        temperature = findViewById(R.id.text_temperature);
         temperatureValue = findViewById(R.id.text_temperature_value);
         pressure = findViewById(R.id.text_pressure);
         pressureValue = findViewById(R.id.text_pressure_value);
