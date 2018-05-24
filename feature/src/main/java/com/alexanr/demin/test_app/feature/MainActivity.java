@@ -1,8 +1,10 @@
 package com.alexanr.demin.test_app.feature;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -10,7 +12,6 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE = 1234;
     private EditText editCity;
     private Button okButton;
     private CheckBox checkBoxPressure;
@@ -25,14 +26,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         this.editCity = findViewById(R.id.edit_city);
-        this.editCity.setText(getResources().getString(R.string.city));
-/*        checkBoxPressure = findViewById(R.id.check_box_pressure);
-        checkBoxPressure.setChecked(false);
+        checkBoxPressure = findViewById(R.id.check_box_pressure);
         checkBoxHumidity = findViewById(R.id.check_box_humidity);
-        checkBoxHumidity.setChecked(true);*/
         this.okButton = findViewById(R.id.button_ok);
-        this.okButton.setOnClickListener(new View.OnClickListener() {
+        this.okButton.setEnabled(false);
+
+        this.editCity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().length() > 0) {
+                    okButton.setEnabled(true);
+                } else {
+                    okButton.setEnabled(false);
+                }
+            }
+        });
+
+        this.onClick(okButton);
+
+    }
+
+    private void onClick(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, WeatherActivity.class);
@@ -51,13 +76,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle saveInstanceState) {
         super.onRestoreInstanceState(saveInstanceState);
-        //increment = saveInstanceState.getInt(COUNTER_KEY);
-        //textView.setText("Inc " + increment);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle saveInstanceState) {
         super.onSaveInstanceState(saveInstanceState);
-        //saveInstanceState.putInt(COUNTER_KEY, increment);
     }
 }
