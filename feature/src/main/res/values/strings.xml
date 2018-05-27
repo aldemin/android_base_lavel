@@ -4,8 +4,8 @@
     <string name="ok">OK</string>
     <string name="hello">Hello World!</string>
     <string name="weather_today">Weather today</string>
-    <string name="temperature">Temperature:</string>
-    <string name="pressure">Pressure:</string>
+    <string name="temperature">Temperature</string>
+    <string name="pressure">Pressure</string>
     <string name="city">City</string>
     <string name="value">Empty</string>
     <string name="other_param">Other parameters</string>
