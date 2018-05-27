@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AppCompat.Light.DarkActionBar.MyAppThemeBigText">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:layout_marginEnd">@dimen/layout_marginEnd</item>
+        <item name="android:layout_marginStart">@dimen/layout_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/layout_marginTop</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.DarkActionBar.MyAppThemeMediumText">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:layout_marginEnd">@dimen/layout_marginEnd</item>
+        <item name="android:layout_marginStart">@dimen/layout_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/layout_marginTop</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+</resources>
