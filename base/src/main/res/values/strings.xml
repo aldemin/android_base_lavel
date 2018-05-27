@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">test_app</string>
+    <string name="app_name">Погода</string>
+    <string name="enter_city">Введите город:</string>
+    <string name="ok">OK</string>
+    <string name="hello">Hello World!</string>
+    <string name="weather_today">Погода на сегодня</string>
+    <string name="temperature">Температура:</string>
+    <string name="pressure">Давление:</string>
+    <string name="city">Город</string>
+    <string name="value">Значение</string>
 </resources>
