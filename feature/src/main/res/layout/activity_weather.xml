@@ -9,7 +9,7 @@
     <TextView
         style="@style/Theme.AppCompat.Light.DarkActionBar.MyAppThemeBigText"
         android:id="@+id/text_weather_today"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/weather_today"
         android:textAlignment="center"
