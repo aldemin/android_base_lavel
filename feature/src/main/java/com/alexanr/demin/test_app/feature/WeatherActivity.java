@@ -20,7 +20,7 @@ public class WeatherActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Fragment fragment = new WeatherInfoFragment();
             fragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.weather_fragment, fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.additional_fragment, fragment).commit();
         }
     }
 }
