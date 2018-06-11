@@ -9,6 +9,7 @@
     <string name="pressure">Давление</string>
     <string name="city">Город</string>
     <string name="value">Значение</string>
-    <string name="other_param">Другие параметры:</string>
+    <string name="other_param">Параметры</string>
     <string name="humidity">Влажность</string>
+    <string name="hide">Скрыть</string>
 </resources>
