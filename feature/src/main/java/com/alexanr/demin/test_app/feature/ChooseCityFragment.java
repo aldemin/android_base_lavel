@@ -31,26 +31,28 @@ public class ChooseCityFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.choose_city_fragment, container, false);
+        View view = inflater.inflate(R.layout.choose_city_fragment, container, false);
+
+        this.editCity = view.findViewById(R.id.edit_city);
+        this.okButton = view.findViewById(R.id.button_ok);
+        this.okButton.setEnabled(false);
+        this.paramButton = view.findViewById(R.id.toggle_other_param);
+        this.paramLayout = view.findViewById(R.id.param_layout);
+        this.checkBoxPressure = view.findViewById(R.id.check_box_pressure);
+        this.checkBoxPressure.setChecked(false);
+        this.checkBoxHumidity = view.findViewById(R.id.check_box_humidity);
+        this.checkBoxHumidity.setChecked(false);
+
+        this.setTextWatcher();
+        this.setOkButtonListener();
+        this.setParamButtonListener();
+        return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        this.editCity = getActivity().findViewById(R.id.edit_city);
-        this.okButton = getActivity().findViewById(R.id.button_ok);
-        this.okButton.setEnabled(false);
-        this.paramButton = getActivity().findViewById(R.id.toggle_other_param);
-        this.paramLayout = getActivity().findViewById(R.id.param_layout);
-        this.checkBoxPressure = getActivity().findViewById(R.id.check_box_pressure);
-        this.checkBoxPressure.setChecked(false);
-        this.checkBoxHumidity = getActivity().findViewById(R.id.check_box_humidity);
-        this.checkBoxHumidity.setChecked(false);
-
-        this.setTextWatcher();
-        this.setOkButtonListener();
-        this.setParamButtonListener();
 
     }
 
