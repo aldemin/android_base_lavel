@@ -126,6 +126,8 @@ public class ChooseCityFragment extends Fragment {
                     paramLayout.setVisibility(View.VISIBLE);
                 } else {
                     paramLayout.setVisibility(View.GONE);
+                    checkBoxHumidity.setChecked(false);
+                    checkBoxPressure.setChecked(false);
                 }
             }
         });
