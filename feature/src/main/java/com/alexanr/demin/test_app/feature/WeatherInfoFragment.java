@@ -21,21 +21,16 @@ public class WeatherInfoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.weather_info_fragment, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        View view = inflater.inflate(R.layout.weather_info_fragment, container, false);
 
         this.bundle = getArguments();
 
-        city = getActivity().findViewById(R.id.text_city);
-        temperatureValue = getActivity().findViewById(R.id.text_temperature_value);
-        pressure = getActivity().findViewById(R.id.text_pressure);
-        pressureValue = getActivity().findViewById(R.id.text_pressure_value);
-        humidity = getActivity().findViewById(R.id.text_humidity);
-        humidityValue = getActivity().findViewById(R.id.text_humidity_value);
+        city = view.findViewById(R.id.text_city);
+        temperatureValue = view.findViewById(R.id.text_temperature_value);
+        pressure = view.findViewById(R.id.text_pressure);
+        pressureValue = view.findViewById(R.id.text_pressure_value);
+        humidity = view.findViewById(R.id.text_humidity);
+        humidityValue = view.findViewById(R.id.text_humidity_value);
 
         city.setText(bundle.getString(ChooseCityFragment.CITY_KEY));
         temperatureValue.setText("78");
@@ -59,5 +54,6 @@ public class WeatherInfoFragment extends Fragment {
             this.pressure.setVisibility(View.GONE);
             this.pressureValue.setVisibility(View.GONE);
         }
+        return view;
     }
 }
