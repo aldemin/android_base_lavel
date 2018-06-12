@@ -14,7 +14,7 @@
         tools:layout="@layout/choose_city_fragment" />
 
     <FrameLayout
-        android:id="@+id/additional_fragment"
+        android:id="@+id/weather_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">

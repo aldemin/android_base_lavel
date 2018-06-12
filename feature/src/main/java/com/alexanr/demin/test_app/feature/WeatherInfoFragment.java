@@ -1,11 +1,14 @@
 package com.alexanr.demin.test_app.feature;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class WeatherInfoFragment extends Fragment {
@@ -16,44 +19,49 @@ public class WeatherInfoFragment extends Fragment {
     private TextView pressureValue;
     private TextView humidity;
     private TextView humidityValue;
+    private LinearLayout pressureLayout;
+    private LinearLayout humidityLayout;
 
-    private Bundle bundle;
+    protected static final String CITY_KEY = "city";
+    protected static final String TEMP_KEY = "city";
+    protected static final String PRESSURE_KEY = "pressure";
+    protected static final String HUMIDITY_KEY = "humidity";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.weather_info_fragment, container, false);
+        initViews(view);
+        initParams(getArguments());
+        return view;
+    }
 
-        this.bundle = getArguments();
+    private void initViews(View view) {
+        this.city = view.findViewById(R.id.text_city);
+        this.temperatureValue = view.findViewById(R.id.text_temperature_value);
+        this.pressure = view.findViewById(R.id.text_pressure);
+        this.pressureValue = view.findViewById(R.id.text_pressure_value);
+        this.humidity = view.findViewById(R.id.text_humidity);
+        this.humidityValue = view.findViewById(R.id.text_humidity_value);
+        this.pressureLayout = view.findViewById(R.id.pressure_layout);
+        this.humidityLayout = view.findViewById(R.id.humidity_layout);
+    }
 
-        city = view.findViewById(R.id.text_city);
-        temperatureValue = view.findViewById(R.id.text_temperature_value);
-        pressure = view.findViewById(R.id.text_pressure);
-        pressureValue = view.findViewById(R.id.text_pressure_value);
-        humidity = view.findViewById(R.id.text_humidity);
-        humidityValue = view.findViewById(R.id.text_humidity_value);
-
+    private void initParams(Bundle bundle) {
         city.setText(bundle.getString(ChooseCityFragment.CITY_KEY));
-        temperatureValue.setText("78");
+        temperatureValue.setText(bundle.getString(ChooseCityFragment.TEMP_KEY));
 
         if (bundle.getBoolean(ChooseCityFragment.CHECK_HUMIDITY_KEY)) {
-            this.humidity.setVisibility(View.VISIBLE);
-            this.humidity.setText(R.string.humidity);
-            this.humidityValue.setVisibility(View.VISIBLE);
-            this.humidityValue.setText("22");
+            this.humidityLayout.setVisibility(View.VISIBLE);
+            this.humidityValue.setText(bundle.getString(ChooseCityFragment.HUMIDITY_KEY));
         } else {
-            this.humidity.setVisibility(View.GONE);
-            this.humidityValue.setVisibility(View.GONE);
+            this.humidityLayout.setVisibility(View.GONE);
         }
 
         if (bundle.getBoolean(ChooseCityFragment.CHECK_PRESSURE_KEY)) {
-            this.pressure.setVisibility(View.VISIBLE);
-            this.pressure.setText(R.string.pressure);
-            this.pressureValue.setVisibility(View.VISIBLE);
-            this.pressureValue.setText("31");
+            this.pressureLayout.setVisibility(View.VISIBLE);
+            this.pressureValue.setText(bundle.getString(ChooseCityFragment.PRESSURE_KEY));
         } else {
-            this.pressure.setVisibility(View.GONE);
-            this.pressureValue.setVisibility(View.GONE);
+            this.pressureLayout.setVisibility(View.GONE);
         }
-        return view;
     }
 }

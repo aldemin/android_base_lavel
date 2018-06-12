@@ -8,8 +8,10 @@
     <string name="temperature">Температура</string>
     <string name="pressure">Давление</string>
     <string name="city">Город</string>
-    <string name="value">Значение</string>
+    <string name="value">0</string>
     <string name="other_param">Параметры</string>
     <string name="humidity">Влажность</string>
     <string name="hide">Скрыть</string>
+    <string name="show_history">История</string>
+    <string name="history_is_empty">История пуста</string>
 </resources>
