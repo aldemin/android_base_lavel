@@ -17,11 +17,11 @@ public class WeatherHistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.weather_history_fragment, container, false);
-/*        if (this.adapter.getItemCount() != 0) {
+        this.initRecycleView(view);
+        if (this.adapter.getItemCount() != 0) {
             view.findViewById(R.id.recycler_view_layout).setVisibility(View.VISIBLE);
             view.findViewById(R.id.recycler_view_empty_layout).setVisibility(View.GONE);
-        }*/
-        this.initRecycleView(view);
+        }
         this.bundle = getArguments();
         return view;
     }
