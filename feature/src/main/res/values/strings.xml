@@ -7,10 +7,10 @@
     <string name="temperature">Temperature</string>
     <string name="pressure">Pressure</string>
     <string name="city">City</string>
-    <string name="value">Empty</string>
-    <string name="other_param">Other parameters</string>
+    <string name="value">0</string>
+    <string name="other_param">Parameters</string>
     <string name="humidity">Humidity</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hide">Hide</string>
+    <string name="show_history">Show history</string>
+    <string name="history_is_empty">History is empty</string>
 </resources>

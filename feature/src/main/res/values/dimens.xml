@@ -5,4 +5,5 @@
     <dimen name="layout_marginTop">32dp</dimen>
     <dimen name="text_size_big">30sp</dimen>
     <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

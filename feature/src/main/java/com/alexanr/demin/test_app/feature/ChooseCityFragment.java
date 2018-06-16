@@ -10,7 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ToggleButton;
+
+import java.util.Date;
 
 public class ChooseCityFragment extends Fragment {
 
@@ -18,26 +23,100 @@ public class ChooseCityFragment extends Fragment {
     private Button okButton;
     private CheckBox checkBoxPressure;
     private CheckBox checkBoxHumidity;
+    private ToggleButton paramButton;
+    private Button historyButton;
+
+    private LinearLayout paramLayout;
+    private WeatherItemAdapter adapter;
 
     protected static final String CITY_KEY = "city";
-    protected static final String CHECK_PRESSURE_KEY = "pressure";
-    protected static final String CHECK_HUMIDITY_KEY = "humidity";
+    protected static final String TEMP_KEY = "temperature";
+    protected static final String CHECK_PRESSURE_KEY = "check pressure";
+    protected static final String PRESSURE_KEY = "pressure";
+    protected static final String CHECK_HUMIDITY_KEY = "check humidity";
+    protected static final String HUMIDITY_KEY = "humidity";
+    protected static final String DATE_KEY = "date";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.choose_city_fragment, container, false);
+        View view = inflater.inflate(R.layout.choose_city_fragment, container, false);
+        this.initViews(view);
+        this.setTextWatcher();
+        this.okButtonListener();
+        this.paramButtonListener();
+        this.historyButtonListener();
+        return view;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        this.editCity = getActivity().findViewById(R.id.edit_city);
-        this.checkBoxPressure = getActivity().findViewById(R.id.check_box_pressure);
-        this.checkBoxHumidity = getActivity().findViewById(R.id.check_box_humidity);
-        this.okButton = getActivity().findViewById(R.id.button_ok);
+    private void initViews(View view) {
+        this.editCity = view.findViewById(R.id.edit_city);
+        this.okButton = view.findViewById(R.id.button_ok);
+        this.historyButton = view.findViewById(R.id.button_history);
+        this.paramButton = view.findViewById(R.id.toggle_other_param);
+        this.paramLayout = view.findViewById(R.id.param_layout);
+        this.checkBoxPressure = view.findViewById(R.id.check_box_pressure);
+        this.checkBoxHumidity = view.findViewById(R.id.check_box_humidity);
+        this.checkBoxPressure.setChecked(false);
+        this.checkBoxHumidity.setChecked(false);
         this.okButton.setEnabled(false);
+        this.adapter = new WeatherItemAdapter();
+    }
 
+    private void showInfo() {
+        Intent intent = this.generateIntentForWeatherInfo();
+        if (this.isAdditionalFragmentExist()) {
+            if (getFragmentManager().findFragmentById(R.id.weather_fragment) == null) {
+                Fragment fragment = new WeatherInfoFragment();
+                fragment.setArguments(intent.getExtras());
+                getFragmentManager().beginTransaction().add(R.id.weather_fragment, fragment).commit();
+            } else {
+                Fragment fragment = new WeatherInfoFragment();
+                fragment.setArguments(intent.getExtras());
+                getFragmentManager().beginTransaction().replace(R.id.weather_fragment, fragment).commit();
+            }
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    private void showHistory() {
+        Intent intent = new Intent(getActivity(), HistoryActivity.class);
+        if (this.isAdditionalFragmentExist()) {
+            if (getFragmentManager().findFragmentById(R.id.weather_fragment) == null) {
+                Fragment fragment = new WeatherHistoryFragment();
+                getFragmentManager().beginTransaction().add(R.id.weather_fragment, fragment).commit();
+            } else {
+                Fragment fragment = new WeatherHistoryFragment();
+                getFragmentManager().beginTransaction().replace(R.id.weather_fragment, fragment).commit();
+            }
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    private Intent generateIntentForWeatherInfo() {
+        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+        intent.putExtra(CITY_KEY, editCity.getText().toString());
+        intent.putExtra(TEMP_KEY, "20");
+        intent.putExtra(DATE_KEY, new Date().toString());
+        if (checkBoxPressure.isChecked()) {
+            intent.putExtra(CHECK_PRESSURE_KEY, true);
+            intent.putExtra(PRESSURE_KEY, "30");
+        }
+        if (checkBoxHumidity.isChecked()) {
+            intent.putExtra(CHECK_HUMIDITY_KEY, true);
+            intent.putExtra(HUMIDITY_KEY, "34");
+        }
+        this.setNewItem(intent);
+        return intent;
+    }
+
+    private boolean isAdditionalFragmentExist() {
+        View view = getActivity().findViewById(R.id.weather_fragment);
+        return view != null && view.getVisibility() == View.VISIBLE;
+    }
+
+    private void setTextWatcher() {
         this.editCity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -56,46 +135,53 @@ public class ChooseCityFragment extends Fragment {
                 }
             }
         });
+    }
 
+    private void okButtonListener() {
         this.okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showWeatherInfo();
+                showInfo();
             }
         });
     }
 
-    private void showWeatherInfo() {
-        Intent intent = this.generateIntentForWeatherInfo();
-        if (this.isWeatherInfoExist()) {
-            if (getFragmentManager().findFragmentById(R.id.weather_fragment) == null) {
-                Fragment fragment = new WeatherInfoFragment();
-                fragment.setArguments(intent.getExtras());
-                getFragmentManager().beginTransaction().add(R.id.weather_fragment, fragment).commit();
-            } else {
-                Fragment fragment = new WeatherInfoFragment();
-                fragment.setArguments(intent.getExtras());
-                getFragmentManager().beginTransaction().replace(R.id.weather_fragment, fragment).commit();
+    private void historyButtonListener() {
+        this.historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHistory();
             }
-        } else {
-            startActivity(intent);
-        }
+        });
     }
 
-    private Intent generateIntentForWeatherInfo() {
-        Intent intent = new Intent(getActivity(), WeatherActivity.class);
-        intent.putExtra(CITY_KEY, editCity.getText().toString());
-        if (checkBoxPressure.isChecked()) {
-            intent.putExtra(CHECK_PRESSURE_KEY, true);
-        }
-        if (checkBoxHumidity.isChecked()) {
-            intent.putExtra(CHECK_HUMIDITY_KEY, true);
-        }
-        return intent;
+    private void paramButtonListener() {
+        this.paramButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    paramLayout.setVisibility(View.VISIBLE);
+                } else {
+                    paramLayout.setVisibility(View.GONE);
+                    checkBoxHumidity.setChecked(false);
+                    checkBoxPressure.setChecked(false);
+                }
+            }
+        });
     }
 
-    private boolean isWeatherInfoExist() {
-        View view = getActivity().findViewById(R.id.weather_fragment);
-        return view != null && view.getVisibility() == View.VISIBLE;
+    private void setNewItem(Intent intent) {
+        Bundle bundle = intent.getExtras();
+        WeatherItem item = new WeatherItem(bundle.getString(CITY_KEY),
+                bundle.getString(TEMP_KEY),
+                bundle.getString(DATE_KEY));
+        if (bundle.getBoolean(CHECK_PRESSURE_KEY)) {
+            item.setPressure(bundle.getString(PRESSURE_KEY));
+        }
+        if (bundle.getBoolean(CHECK_HUMIDITY_KEY)) {
+            item.setHumidity(bundle.getString(HUMIDITY_KEY));
+        }
+        WeatherItems.getInstance().addNewItem(item);
     }
+
 }
